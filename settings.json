@@ -1,0 +1,21 @@
+{
+  "SeeDocsAt": "https://github.com/Microsoft/AirSim/blob/main/docs/settings.md",
+  "SettingsVersion": 1.2,
+  "Vehicles": {
+    "Drone1": {
+      "VehicleType": "SimpleFlight",
+      "Sensors": {
+        "LidarSensor1": {
+          "SensorType": 6,
+          "Enabled": true,
+          "NumberOfChannels": 32,
+          "Range": 50,
+          "PointsPerSecond": 70000,
+          "X": 0,
+          "Y": 0,
+          "Z": 0
+        }
+      }
+    }
+  }
+}
