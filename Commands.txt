@@ -1,0 +1,3 @@
+AirSimNH.exe -WINDOWED -ResX=480 -ResY=720
+
+D:\Users\DELL\AirSimNH\AirSimNH\WindowsNoEditor
