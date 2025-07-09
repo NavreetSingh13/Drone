@@ -1,6 +1,8 @@
+control.py
 from simple_pid import PID
 from modules import drone
 import time
+import os  #Added to handle directory creation
 
 # Constants
 MAX_SPEED = 4      # m/s
@@ -64,6 +66,12 @@ def set_flight_altitude(alt):
 
 def initialize_debug_logs(DEBUG_FILEPATH):
     global debug_yaw, debug_velocity
+
+    #Ensure directory exists
+    directory = os.path.dirname(DEBUG_FILEPATH)
+    if directory != '' and not os.path.exists(directory):
+        os.makedirs(directory)
+
     debug_yaw = open(DEBUG_FILEPATH + "_yaw.txt", "a")
     debug_yaw.write("P: I: D: Error: command:\n")
 
@@ -117,3 +125,10 @@ def stop_drone():
 
 def set_system_state(state):
     print(f"System state set to {state}")
+def disarm():
+    from modules import drone
+    try:
+        drone.disarm()
+        print("[INFO] Disarm command sent.")
+    except Exception as e:
+        print(f"[WARN] Disarm failed or drone already disarmed: {e}")
