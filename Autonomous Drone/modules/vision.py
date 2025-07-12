@@ -53,3 +53,4 @@ def get_single_axis_delta(center_coordinate, target_coordinate):
     - Delta (positive if target is to the right/bottom, negative if left/top)
     """
     return target_coordinate - center_coordinate
+

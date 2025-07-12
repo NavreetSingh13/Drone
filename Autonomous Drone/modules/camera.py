@@ -1,4 +1,3 @@
-camera.py
 # camera.py
 # -------------------------------------------
 # Uses camera_stream.py for Pi Camera feed
@@ -9,7 +8,8 @@ import numpy as np
 import cv2
 
 # URL of the running camera_stream.py server
-STREAM_URL = "http://192.168.48.153:5001"
+STREAM_URL = "http://127.0.0.1:5001/video_feed"
+
 
 # Persistent stream object to avoid reconnecting every frame
 stream = None
@@ -69,3 +69,4 @@ def close_cameras():
         stream.close()
     stream = None
     print("[INFO] Camera stream closed.")
+

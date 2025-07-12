@@ -1,4 +1,3 @@
-camera_yolo
 from flask import Flask, Response
 import torch
 import cv2
@@ -8,7 +7,7 @@ import threading
 import sys
 import os
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # Load YOLOv5 model
 model = torch.hub.load('yolov5', 'custom', path='yolov5s.pt', source='local')
@@ -104,6 +103,6 @@ def index():
     </html>
     '''
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     print("[INFO] Starting Flask server at http://<your_pi_ip>:5001")
     app.run(host='0.0.0.0', port=5001, threaded=True)

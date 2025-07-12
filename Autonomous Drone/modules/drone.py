@@ -1,4 +1,3 @@
-drone.py
 from pymavlink import mavutil
 import time
 from typing import Any
@@ -130,3 +129,4 @@ def get_battery_info():
 
 def get_EKF_status():
     return "EKF status not available via pymavlink - check GCS"
+

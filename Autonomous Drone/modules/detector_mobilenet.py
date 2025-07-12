@@ -48,7 +48,7 @@ def get_detections():
     return detections, round(fps, 2), frame
 
 class Detection:
-    def _init_(self, left, top, right, bottom):
+    def __init__(self, left, top, right, bottom):
         self.Left = left
         self.Top = top
         self.Right = right

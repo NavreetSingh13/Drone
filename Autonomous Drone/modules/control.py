@@ -1,4 +1,3 @@
-control.py
 from simple_pid import PID
 from modules import drone
 import time
@@ -132,3 +131,4 @@ def disarm():
         print("[INFO] Disarm command sent.")
     except Exception as e:
         print(f"[WARN] Disarm failed or drone already disarmed: {e}")
+

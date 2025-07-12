@@ -1,4 +1,3 @@
-main.py
 # main.py
 import sys
 import time
@@ -6,7 +5,7 @@ import argparse
 import collections
 import cv2
 
-
+from modules import detector_mobilenet as detector
 from modules import camera
 from modules import vision
 from modules import control
@@ -151,3 +150,4 @@ except Exception as e:
     camera.close_cameras()
     cv2.destroyAllWindows()
     sys.exit(1)
+
