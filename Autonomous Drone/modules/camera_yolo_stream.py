@@ -10,14 +10,11 @@ app = Flask(__name__)
 process = None
 data_buffer = b""
 
-# ---------------------------------------
-# Start libcamera-vid as MJPEG pipe
-# ---------------------------------------
 def start_camera_process():
     global process
     cmd = [
         'libcamera-vid', '--inline', '--nopreview', '-t', '0',
-        '--framerate', '8',  # ✅ Reduce frame rate to ease buffering
+        '--framerate', '8',
         '--width', '640', '--height', '480',
         '--codec', 'mjpeg', '-o', '-'
     ]
@@ -29,9 +26,6 @@ def start_camera_process():
         print(f"[ERROR] Failed to start libcamera-vid: {e}")
         sys.exit(1)
 
-# ---------------------------------------
-# Watch for libcamera-vid errors
-# ---------------------------------------
 def check_process_errors():
     global process
     for line in process.stderr:
@@ -42,9 +36,6 @@ def check_process_errors():
             process.kill()
             sys.exit(1)
 
-# ---------------------------------------
-# Continuously read video bytes
-# ---------------------------------------
 def read_camera_stream():
     global data_buffer
     while True:
@@ -56,9 +47,6 @@ def read_camera_stream():
 start_camera_process()
 threading.Thread(target=read_camera_stream, daemon=True).start()
 
-# ---------------------------------------
-# MJPEG frame generator for browser
-# ---------------------------------------
 def generate_frames():
     global data_buffer
     while True:
@@ -85,7 +73,7 @@ def index():
     <html>
     <head><title>Low-Latency Drone Camera Feed</title></head>
     <body style="text-align:center; background:#111; color:white;">
-        <h2>Live Drone Camera (Raw Feed)</h2>
+        <h2>Live Drone Feed</h2>
         <img src="/video_feed" width="640" height="480">
     </body>
     </html>

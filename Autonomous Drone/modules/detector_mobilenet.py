@@ -1,8 +1,3 @@
-# detector_mobilenet.py (YOLOv5 version)
-# --------------------------------------
-# Uses YOLOv5s for real-time object detection (e.g., person)
-# --------------------------------------
-
 import numpy as np
 import cv2
 import time

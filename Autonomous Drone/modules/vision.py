@@ -1,9 +1,3 @@
-# vision.py
-# -----------------------
-# Functions for camera-based geometric estimation
-# Used in object following drone for approximate distance calculation
-# -----------------------
-
 def estimate_distance_from_box(bbox_height, image_height):
     """
     Estimate the distance to an object using its bounding box height.
@@ -27,19 +21,13 @@ def estimate_distance_from_box(bbox_height, image_height):
     if bbox_height <= 0:
         return 0.0
 
-    # === Calibration constant ===
-    # Adjust this based on tests:
-    # For example, if bbox_height=200px at distance=6m:
-    # k = 200 * 6 = 1200
     k = 1200
 
     est_distance = k / bbox_height
 
-    # Optionally constrain distance range (safety filter)
-    est_distance = max(0.3, min(est_distance, 10.0))  # Clamp between 0.3m and 10m
+    est_distance = max(0.3, min(est_distance, 10.0))
 
     return est_distance
-
 
 def get_single_axis_delta(center_coordinate, target_coordinate):
     """
@@ -53,4 +41,3 @@ def get_single_axis_delta(center_coordinate, target_coordinate):
     - Delta (positive if target is to the right/bottom, negative if left/top)
     """
     return target_coordinate - center_coordinate
-

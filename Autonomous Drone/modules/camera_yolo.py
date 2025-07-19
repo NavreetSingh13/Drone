@@ -9,11 +9,9 @@ import os
 
 app = Flask(__name__)
 
-# Load YOLOv5 model
 model = torch.hub.load('yolov5', 'custom', path='yolov5s.pt', source='local')
-model.conf = 0.4  # Confidence threshold
+model.conf = 0.4
 
-# Global camera process
 process = None
 data_buffer = b""
 
@@ -66,13 +64,9 @@ def generate_frames():
             if frame is None:
                 continue
 
-            # Run YOLOv5 inference
             results = model(frame)
-
-            # Annotate the frame with detection results
             annotated = np.squeeze(results.render())
 
-            # Encode and yield
             ret, buffer = cv2.imencode('.jpg', annotated)
             if not ret:
                 continue

@@ -5,7 +5,6 @@ import subprocess
 app = Flask(__name__)
 
 def generate_frames():
-    # Start libcamera-vid subprocess and capture its output
     cmd = ['libcamera-vid', '--inline', '-t', '0', '--width', '640', '--height', '480', '--codec', 'mjpeg', '-o', '-']
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
 
@@ -26,4 +25,3 @@ def index():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, threaded=True)
-

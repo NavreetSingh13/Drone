@@ -10,7 +10,6 @@ app = Flask(__name__)
 process = None
 data_buffer = b""
 
-# Load Haar cascade for face detection (included with OpenCV)
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 def start_camera_process():
@@ -61,25 +60,20 @@ def generate_frames():
             jpg = data_buffer[start:end+2]
             data_buffer = data_buffer[end+2:]
 
-            # Decode JPEG to OpenCV image
             img_array = np.frombuffer(jpg, dtype=np.uint8)
             frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
             if frame is None:
                 continue
 
-            # Convert to grayscale for Haar detection
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-            # Perform detection
             faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
-            # Draw detections
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 cv2.putText(frame, "Face", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX,
                             0.5, (0, 255, 0), 2)
 
-            # Encode frame back to JPEG
             ret, buffer = cv2.imencode('.jpg', frame)
             if not ret:
                 continue
@@ -90,7 +84,7 @@ def generate_frames():
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/')
 def index():
@@ -113,4 +107,3 @@ def index():
 if __name__ == "__main__":
     print("[INFO] Starting Flask server on http://<pi_ip>:5001 ...")
     app.run(host='0.0.0.0', port=5001, threaded=True)
-

@@ -1,4 +1,3 @@
-# main.py
 import sys
 import time
 import argparse
@@ -131,7 +130,6 @@ def visualize(img, person=None, fps=0, z_delta=0, x_delta=0, distance=0):
     cv2.imshow("Tracking", img)
     cv2.waitKey(1)
 
-# ----- Main FSM Loop -----
 try:
     while True:
         if STATE == "track":
@@ -150,4 +148,3 @@ except Exception as e:
     camera.close_cameras()
     cv2.destroyAllWindows()
     sys.exit(1)
-

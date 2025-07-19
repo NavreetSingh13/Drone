@@ -71,10 +71,10 @@ def send_movement_command_YAW(yaw_angle_deg: float = 0.0):
         target_component,
         mavutil.mavlink.MAV_CMD_CONDITION_YAW,
         0,
-        yaw_angle_deg,  # Target angle in degrees
-        20,            # Speed deg/s
-        1,             # Direction: 1=cw, -1=ccw
-        1,             # Relative offset: 1
+        yaw_angle_deg,
+        20,
+        1,
+        1,
         0, 0, 0
     )
     time.sleep(1)
@@ -87,7 +87,7 @@ def send_movement_command_XYA(vx, vy, alt):
     print(f"Sending set_position_target_local_ned_send with vx={vx}, vy={vy}, alt={alt}")
 
     master.mav.set_position_target_local_ned_send(
-        int(time.time() * 1000) % 4294967295,  # Fix: ensure uint32_t range
+        int(time.time() * 1000) % 4294967295,
         target_system,
         target_component,
         mavutil.mavlink.MAV_FRAME_BODY_OFFSET_NED,
@@ -129,4 +129,3 @@ def get_battery_info():
 
 def get_EKF_status():
     return "EKF status not available via pymavlink - check GCS"
-

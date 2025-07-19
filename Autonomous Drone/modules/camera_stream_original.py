@@ -17,7 +17,6 @@ def start_camera_process():
     try:
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=0)
         print("[INFO] libcamera-vid process started")
-        # Check for immediate errors
         threading.Thread(target=check_process_errors, daemon=True).start()
     except Exception as e:
         print(f"[ERROR] Failed to start libcamera-vid: {e}")

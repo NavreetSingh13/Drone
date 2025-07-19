@@ -1,13 +1,10 @@
 from simple_pid import PID
 from modules import drone
 import time
-import os  #Added to handle directory creation
 
-# Constants
-MAX_SPEED = 4      # m/s
+MAX_SPEED = 1      # m/s
 MAX_YAW = 15       # degrees/s
 
-# PID Tuning
 P_YAW = 0.02
 I_YAW = 0
 D_YAW = 0
@@ -16,7 +13,6 @@ P_ROLL = 0.22
 I_ROLL = 0
 D_ROLL = 0
 
-# Global State
 pidYaw = None
 pidRoll = None
 movementYawAngle = 0
@@ -66,7 +62,6 @@ def set_flight_altitude(alt):
 def initialize_debug_logs(DEBUG_FILEPATH):
     global debug_yaw, debug_velocity
 
-    #Ensure directory exists
     directory = os.path.dirname(DEBUG_FILEPATH)
     if directory != '' and not os.path.exists(directory):
         os.makedirs(directory)
@@ -88,7 +83,6 @@ def debug_writer_ROLL(value):
 def control_drone():
     global movementYawAngle, movementRollAngle
 
-    # Yaw Control
     if inputValueYaw == 0 or pidYaw is None:
         movementYawAngle = 0.0
         drone.send_movement_command_YAW(0.0)
@@ -98,7 +92,6 @@ def control_drone():
         drone.send_movement_command_YAW(movementYawAngle)
         debug_writer_YAW(movementYawAngle)
 
-    # Roll (Forward-Backward) Control
     if inputValueVelocityX == 0 or pidRoll is None:
         movementRollAngle = 0.0
         drone.send_movement_command_XYA(0.0, 0.0, flight_altitude)
@@ -131,4 +124,3 @@ def disarm():
         print("[INFO] Disarm command sent.")
     except Exception as e:
         print(f"[WARN] Disarm failed or drone already disarmed: {e}")
-
